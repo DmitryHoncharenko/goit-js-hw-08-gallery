@@ -41,50 +41,26 @@ function onGalleryClick(event) {
   const largeImageURL = imageRef.dataset.source;
   const largeImageAlt = imageRef.alt;
 
-  setLargeImageSrc(largeImageURL);
-  setLargeImageAlt(largeImageAlt);
+  setLargeImageSrc(largeImageURL, largeImageAlt);
 
   const onLargeImage = largeImage.closest('.lightbox');
   onLargeImage.classList.add('is-open');
 
-  const closeBtn = document.querySelector('button[data-action="close-lightbox"]');
   const lightboxRef = document.querySelector('.js-lightbox');
-
-  closeBtn.addEventListener('click', () => {
-    onLargeImage.classList.remove('is-open');
-  });
   
-  lightboxRef.addEventListener('click', () => {
+  lightboxRef.addEventListener('click', closeLightBox);
+  
+  function closeLightBox(event) {
+    if (event.target.nodeName === 'IMG') {
+      return;
+    }
     onLargeImage.classList.remove('is-open');
-  })
+    largeImage.src = '';
+  }
 }
 
-function setLargeImageSrc(original) {
+function setLargeImageSrc(original, description) {
   largeImage.src = original;
-}
-
-function setLargeImageAlt(description) {
   largeImage.alt = description;
-}
+};
 
-// const closeBtn = document.querySelector('button[data-action="close-lightbox"]');
-// closeBtn.addEventListener('click', () => {
-//   onLargeImage.classList.remove('is-open');
-// })
-
-
-
-
-/* <li class="gallery__item">
-  <a
-    class="gallery__link"
-    href="https://cdn.pixabay.com/photo/2010/12/13/10/13/tulips-2546_1280.jpg"
-  >
-    <img
-      class="gallery__image"
-      src="https://cdn.pixabay.com/photo/2010/12/13/10/13/tulips-2546__340.jpg"
-      data-source="https://cdn.pixabay.com/photo/2010/12/13/10/13/tulips-2546_1280.jpg"
-      alt="Tulips"
-    />
-  </a>
-</li> */
