@@ -56,6 +56,7 @@ function onGalleryClick(event) {
     }
     onLargeImage.classList.remove('is-open');
     largeImage.src = '';
+    largeImage.alt = '';
   }
 }
 
